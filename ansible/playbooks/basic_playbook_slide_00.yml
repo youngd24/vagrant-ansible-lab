@@ -1,0 +1,15 @@
+---
+  - name: basic_playbook
+    hosts: all
+    remote_user: vagrant
+    become: yes
+    become_user: root
+
+    tasks:
+      - name: ensure base packages are installed
+        apt:
+          pkg:
+            - htop
+            - vim 
+            - tree 
+            - nmap 
