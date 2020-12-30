@@ -2,7 +2,7 @@
 - hosts: app02
   become: true
   vars_files:
-    - vars/default.yml
+    - ../vars/default.yml
 
   tasks:
 
