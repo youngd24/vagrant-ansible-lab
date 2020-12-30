@@ -6,7 +6,7 @@
     become_user: root
 
     tasks:
-      - name: ensure base packages are installed
+      - name: ensure base apache package is installed
         apt:
           pkg:
             - apache2
@@ -16,3 +16,9 @@
           src: "../templates/index.html.j2"
           dest: /var/www/html/index.html
           mode: 0777
+
+      - name: restart the apache service
+        service:
+         name: apache2
+         state: restarted
+
