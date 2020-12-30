@@ -1,0 +1,26 @@
+---
+  - name: vars_playbook
+    hosts: webserver
+    remote_user: vagrant
+    become: yes
+    become_user: root
+
+    tasks:
+      - name: ensure base apache package is installed
+        apt:
+          pkg:
+            - apache2
+
+      - name: Install index.html
+        template:
+          src: "../templates/index.html.j2"
+          dest: /var/www/html/index.html
+          mode: 0777
+        notify:
+        - restart apache
+
+    handlers:
+      - name: restart apache
+        service:
+          name: apache2
+          state: restarted
