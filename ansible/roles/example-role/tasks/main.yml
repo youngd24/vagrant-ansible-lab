@@ -1,0 +1,14 @@
+---
+###############################################################################
+#
+# tasks/main.yml
+#
+# Main tasks file for example-role
+#
+###############################################################################
+
+- import_tasks: packages.yml
+
+- import_tasks: create-user.yml
+
+- import_tasks: configure-google-ntp.yml
