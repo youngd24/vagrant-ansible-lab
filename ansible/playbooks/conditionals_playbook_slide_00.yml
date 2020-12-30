@@ -1,0 +1,21 @@
+---
+  - name: vars_playbook
+    hosts: all
+    remote_user: vagrant
+    become: yes
+    become_user: root
+
+    tasks:
+
+    - name: upgrade all packages for RedHat systems
+      yum:
+        name: '*'
+        state: latest
+      when: ansible_facts['os_family'] == "RedHat"
+
+    - name: Upgrade all packages for Debian systems
+      apt:
+        name: "*"
+        state: latest
+      when: ansible_facts['os_family'] == "Debian"
+
