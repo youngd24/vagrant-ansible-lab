@@ -1,5 +1,5 @@
 ---
-  - name: vars_playbook
+  - name: conditional_playbook
     hosts: all
     remote_user: vagrant
     become: yes

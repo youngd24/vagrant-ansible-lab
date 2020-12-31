@@ -7,7 +7,7 @@
 #
 ##################################################################################
 
-- name: escalation
+- name: privilege-escalation
   hosts: all
 
   tasks:

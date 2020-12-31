@@ -1,5 +1,5 @@
 ---
-  - name: vars_playbook
+  - name: handlers_playbook
     hosts: webserver
     remote_user: vagrant
     become: yes
