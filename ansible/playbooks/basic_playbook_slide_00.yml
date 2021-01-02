@@ -1,17 +1,13 @@
 ---
   - name: basic_playbook
     hosts: all
+    become: yes 
 
     tasks:
       - name: ensure apache2 is installed (state is optional)
         apt:
           name: apache2
           state: present
-
-      - name: ensure apache2 is removed
-        apt:
-          name: apache2
-          state: absent
 
       - name: Update all packages to their latest version
         apt:
