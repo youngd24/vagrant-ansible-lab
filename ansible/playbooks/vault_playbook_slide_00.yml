@@ -1,0 +1,49 @@
+---
+  - name: vault_playbook
+    hosts: all
+    remote_user: vagrant
+    become: yes
+    become_user: root
+
+    tasks:
+
+      - name: Add the user 'admin' with a bash shell, appending the group 'adm'
+        user:
+          name: admin
+          shell: /bin/bash
+          groups: adm
+          append: yes
+  
+      - name: Create .ssh directory
+        file:
+          path: "/home/admin/.ssh"
+          owner: admin
+          group: admin
+          state: directory
+          mode: '0700'
+
+      - name: Decrypt the ssh private key
+        local_action: " shell ansible-vault decrypt --vault-password-file ~/.vault_pass.txt ../files/admin"
+        delegate_to: localhost
+        become: no 
+        no_log: true
+
+      - name: install the default ssh private key
+        template:
+          src: "../files/admin"
+          dest: "/home/admin/.ssh"
+          owner: admin
+          group: admin
+          mode: 0600
+
+      - name: Encrypt the ssh private key
+        local_action: " shell ansible-vault encrypt --vault-password-file ~/.vault_pass.txt ../files/admin"
+        delegate_to: localhost
+        become: no 
+        no_log: true
+
+      - name: Set authorized key took from file
+        authorized_key:
+          user: admin
+          state: present
+          key: "{{ lookup('file', '../files/admin.pub') }}"

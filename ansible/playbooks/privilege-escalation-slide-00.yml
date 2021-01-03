@@ -1,0 +1,26 @@
+---
+##################################################################################
+#
+# playbooks/privilege-escalation-slide-00.yml
+#
+# Privilege Escalation
+#
+##################################################################################
+
+- name: privilege-escalation
+  hosts: all
+
+  tasks:
+
+  - name: get the username running the command on target host
+    command: whoami
+    register: current_user
+
+  - debug: var=current_user.stdout
+
+  - name: get the username running the command on target host
+    command: whoami
+    become: yes
+    register: current_user
+
+  - debug: var=current_user.stdout

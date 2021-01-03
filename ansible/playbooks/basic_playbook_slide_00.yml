@@ -1,15 +1,16 @@
 ---
   - name: basic_playbook
     hosts: all
-    remote_user: vagrant
-    become: yes
-    become_user: root
+    become: yes 
 
     tasks:
-      - name: ensure base packages are installed
+      - name: ensure apache2 is installed (state is optional)
         apt:
-          pkg:
-            - htop
-            - vim 
-            - tree 
-            - nmap 
+          name: apache2
+          state: present
+
+      - name: Update all packages to their latest version
+        apt:
+          name: "*"
+          state: latest
+
