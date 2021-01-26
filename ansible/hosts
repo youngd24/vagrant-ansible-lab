@@ -1,15 +1,9 @@
-[loadbalancer]
-lb01
-
-[webserver]
+# Ansible hosts file
+[webservers]
 app01
-app02
 
 [database]
 db01
 
-[control]
+[controller]
 control ansible_connection=local
-
-
-
